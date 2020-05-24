@@ -1,16 +1,28 @@
 import { Module } from '@nestjs/common';
 import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MastersModule } from './masters/masters.module';
+
+import {
+  CustomersController,
+  RecordsController,
+  ServiceController,
+  ServiceCategoryController,
+  StaffController
+} from './controllers';
 
 @Module({
   imports: [
-    InMemoryDBModule.forRoot(),
-    MastersModule
+    InMemoryDBModule.forRoot()
   ],
-  controllers: [AppController],
+  controllers: [
+    AppController,
+    CustomersController,
+    RecordsController,
+    ServiceController,
+    ServiceCategoryController,
+    StaffController,
+  ],
   providers: [AppService],
 })
 export class AppModule { }

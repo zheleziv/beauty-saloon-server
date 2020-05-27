@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Delete, Patch, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
-import { IServiceCategoryEntity } from 'src/shared/interfaces';
 import { ServiceDto } from 'src/shared/dto';
 import { ServicesService } from 'src/services';
 
@@ -8,18 +7,7 @@ import { ServicesService } from 'src/services';
 @Controller('services')
 export class ServicesController {
 
-  constructor(
-    private services: ServicesService
-  ) { }
-
-  // @Get('withCategories')
-  // @ApiOperation({ summary: 'Возвращает услуги сгруппированные по категориям' })
-  // getServicesWithCategories() {
-  // }
-
-  // @Get('forCategory/:id')
-  // @ApiOperation({ summary: 'Возвращает услуги для категории' })
-  // getCategoryServices() { }
+  constructor(private readonly services: ServicesService) { }
 
   @Get()
   @ApiOperation({ summary: 'Возвращает все услуги' })
@@ -27,21 +15,5 @@ export class ServicesController {
   getServices(): ServiceDto[] {
     return this.services.getAll();
   }
-
-  // @Get(':id')
-  // @ApiOperation({ summary: 'Возвращает услугу по id' })
-  // getServiceById(@Param('id') id: number) { }
-
-  // @Post()
-  // @ApiOperation({ summary: 'Добавляет услугу' })
-  // createService() { }
-
-  // @Patch(':id')
-  // @ApiOperation({ summary: 'Редактирует услугу' })
-  // updateService(@Param('id') id: number) { }
-
-  // @Delete(':id')
-  // @ApiOperation({ summary: 'Удаляет услугу' })
-  // deleteService(@Param('id') id: number) { }
 
 }

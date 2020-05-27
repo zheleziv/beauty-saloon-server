@@ -10,10 +10,10 @@ import { ICustomerEntity, IOrderEntity } from 'src/shared/interfaces';
 export class OrdersController {
 
   constructor(
-    private ordersService: OrdersService,
-    private customerService: CustomersService,
-    private staffService: StaffService,
-    private servicesService: ServicesService
+    private readonly ordersService: OrdersService,
+    private readonly customerService: CustomersService,
+    private readonly staffService: StaffService,
+    private readonly servicesService: ServicesService
   ) { }
 
   @Get()

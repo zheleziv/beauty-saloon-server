@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import {
   CustomersController,
   OrdersController,
-  ServiceCategoryController,
   ServicesController,
   StaffController
 } from './controllers';
@@ -19,7 +18,6 @@ import {
   controllers: [
     CustomersController,
     OrdersController,
-    ServiceCategoryController,
     ServicesController,
     StaffController
   ],

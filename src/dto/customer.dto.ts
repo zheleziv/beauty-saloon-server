@@ -11,6 +11,9 @@ export class CustomerDto extends BaseDto {
   @ApiProperty({ description: 'Фамилия' })
   surName: string;
 
+  @ApiProperty({ description: 'Полное имя клиента' })
+  fullName: string;
+
   @ApiProperty({ description: 'Номер телефона' })
   phone: string;
 }

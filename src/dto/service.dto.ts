@@ -15,6 +15,9 @@ export class ServiceDto extends BaseDto {
   @ApiProperty({ description: 'Фотография услуги' })
   photo: string;
 
+  @ApiProperty({ description: 'Услуга является популярной' })
+  isPopular: boolean;
+
 } 
 
 export class CreateServiceDto extends BaseDto {

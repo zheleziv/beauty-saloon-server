@@ -1,4 +1,4 @@
-import { InMemoryDBEntity } from '@nestjs-addons/in-memory-db';
+import { InMemoryDBEntity } from "./in-memory-entity.interface";
 
 export interface IStaffEntity extends InMemoryDBEntity {
   firstName: string;

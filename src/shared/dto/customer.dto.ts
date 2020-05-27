@@ -6,7 +6,7 @@ export class CustomerDto extends BaseDto {
   firstName: string;
 
   @ApiProperty({ description: 'Отчество' })
-  patronomyc: string;
+  patronymic: string;
 
   @ApiProperty({ description: 'Фамилия' })
   surName: string;

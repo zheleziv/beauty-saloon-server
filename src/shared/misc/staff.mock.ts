@@ -1,28 +1,28 @@
 export default [
   {
     firstName: 'Ирина',
-    patronomyc: 'Сергеевна',
+    patronymic: 'Сергеевна',
     surName: 'Краснова',
     position: 'Мастер ногтевого сервиса',
     startWorkDate: new Date()
   },
   {
     firstName: 'Жанна',
-    patronomyc: 'Сергеевна',
+    patronymic: 'Сергеевна',
     surName: 'Калилова',
     position: 'Визажист-стилист',
     startWorkDate: new Date()
   },
   {
     firstName: 'Алина',
-    patronomyc: 'Сергеевна',
+    patronymic: 'Сергеевна',
     surName: 'Киселева',
     position: 'Парикмахер',
     startWorkDate: new Date()
   },
   {
     firstName: 'Елена',
-    patronomyc: 'Сергеевна',
+    patronymic: 'Сергеевна',
     surName: 'Иванова',
     position: 'Мастер ногтевого сервиса',
     startWorkDate: new Date()

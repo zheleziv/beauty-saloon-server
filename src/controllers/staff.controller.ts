@@ -1,32 +1,23 @@
 import { Controller, Get, Param, HttpException, HttpStatus, Post, Body, Delete } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiCreatedResponse, ApiOkResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 
-import mastersMock from 'src/misc/staff.mock';
-import { IStaffEntity } from 'src/interfaces';
-import { StaffDto, CreateStaffDto } from 'src/dto';
+import { StaffDto, CreateStaffDto } from 'src/shared/dto';
+import { StaffService } from 'src/services';
 
 @ApiTags('Staff')
 @Controller('staff')
 export class StaffController {
 
-  // constructor(
-  //   private mastersService: InMemoryDBService<IStaffEntity>,
-  //   private ordersService: InMemoryDBService<IOrderEntity>,
-  // ) {
-  //   this.mastersService.createMany(mastersMock);
-  //   console.log(this.ordersService.getAll());
-  //   console.log(1);
-    
-  //   console.log(this.mastersService.getAll());
-    
-  // }
+  constructor(
+    private staffService: StaffService,
+  ) { }
 
-  // @Get()
-  // @ApiOperation({ summary: 'Возвращает список сотрудников' })
-  // @ApiOkResponse({ type: [StaffDto] })
-  // getMasters(): StaffDto[] {
-  //   return this.mastersService.getAll();
-  // }
+  @Get()
+  @ApiOperation({ summary: 'Возвращает список сотрудников' })
+  @ApiOkResponse({ type: [StaffDto] })
+  getMasters(): StaffDto[] {
+    return this.staffService.getAll();
+  }
 
   // @Get(':id')
   // @ApiOperation({ summary: 'Возвращает сотрудника по id' })

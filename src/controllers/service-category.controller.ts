@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Param, Query, HttpException, HttpStatus, Patch, Delete } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { ServiceCategoryDto } from 'src/dto';
-import { IServiceCategoryEntity } from 'src/interfaces';
+import { ServiceCategoryDto } from 'src/shared/dto';
+import { IServiceCategoryEntity } from 'src/shared/interfaces';
 
 @ApiTags('Service Category')
 @Controller('service-category')

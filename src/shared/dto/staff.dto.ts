@@ -6,7 +6,7 @@ export class StaffDto extends BaseDto {
   firstName: string;
 
   @ApiProperty({ description: 'Отчество' })
-  patronomyc: string;
+  patronymic: string;
 
   @ApiProperty({ description: 'Фамилия' })
   surName: string;
@@ -26,7 +26,7 @@ export class CreateStaffDto {
   firstName: string;
 
   @ApiProperty({ description: 'Отчество' })
-  patronomyc: string;
+  patronymic: string;
 
   @ApiProperty({ description: 'Фамилия' })
   surName: string;
@@ -34,9 +34,9 @@ export class CreateStaffDto {
   @ApiProperty({ description: 'Должность' })
   position: string;
 
-  @ApiProperty({ description: 'Дата начала работы в компании' })
+  @ApiProperty({ description: 'Дата начала работы в компании', required: false })
   startWorkDate: Date;
 
-  @ApiProperty({ description: 'Путь до фотки сотрудника' })
+  @ApiProperty({ description: 'Путь до фотки сотрудника', required: false })
   photo: string;
 }

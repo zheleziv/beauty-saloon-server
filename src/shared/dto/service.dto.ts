@@ -6,16 +6,16 @@ export class ServiceDto extends BaseDto {
   @ApiProperty({ description: 'Название' })
   name: string;
 
-  @ApiProperty({ description: 'Описание' })
+  @ApiProperty({ description: 'Описание', required: false })
   description: string;
 
   @ApiProperty({ description: 'Стоимость' })
   price: number;
 
-  @ApiProperty({ description: 'Фотография услуги' })
+  @ApiProperty({ description: 'Фотография услуги', required: false })
   photo: string;
 
-  @ApiProperty({ description: 'Услуга является популярной' })
+  @ApiProperty({ description: 'Услуга является популярной', required: false })
   isPopular: boolean;
 
 } 

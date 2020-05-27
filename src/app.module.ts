@@ -8,7 +8,12 @@ import {
   StaffController
 } from './controllers';
 
-import { CustomersService } from './services';
+import {
+  CustomersService,
+  OrdersService,
+  StaffService,
+  ServicesService
+} from './services';
 
 @Module({
   controllers: [
@@ -19,7 +24,10 @@ import { CustomersService } from './services';
     StaffController
   ],
   providers: [
-    CustomersService
+    CustomersService,
+    OrdersService,
+    StaffService,
+    ServicesService
   ]
 })
 export class AppModule { }

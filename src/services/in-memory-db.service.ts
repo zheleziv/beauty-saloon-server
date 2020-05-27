@@ -1,4 +1,4 @@
-import { InMemoryDBEntity } from "src/interfaces";
+import { InMemoryDBEntity } from "src/shared/interfaces";
 
 export class InMemoryDbService<T extends InMemoryDBEntity> {
   private _recordMap: { [id: number]: T } = {};

@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, Patch, Param, Delete, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiCreatedResponse, ApiBadRequestResponse, ApiOkResponse, ApiNotFoundResponse, ApiQuery } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, Patch, Param, Delete, Query, UseGuards, Request } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiCreatedResponse, ApiBadRequestResponse, ApiOkResponse, ApiNotFoundResponse, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { CustomersService } from 'src/services';
 import { CustomerDto, CreateCustomerDto } from 'src/shared/dto';
 import { Utils } from 'src/shared/utils';
+import { JwtAuthGuard } from 'src/services/auth';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @ApiTags('Customers')
 @Controller('customers')
 export class CustomersController {
@@ -14,7 +17,7 @@ export class CustomersController {
   @ApiOperation({ summary: 'Возвращает клиентов салона' })
   @ApiQuery({ name: 'search', description: 'Фильтрует клиента по ФИО или номер телефона', required: false })
   @ApiOkResponse({ type: [CustomerDto] })
-  getCustomers(@Query('search') search: string): CustomerDto[] {
+  getCustomers(@Request() req, @Query('search') search: string): CustomerDto[] {
     return this.customersService
       .getAll()
       .map(customer => new CustomerDto(customer))

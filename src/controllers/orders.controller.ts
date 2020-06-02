@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, Query, Patch, Param, Delete } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiBadRequestResponse, ApiQuery } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, Query, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiBadRequestResponse, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { OrderDto, CreateOrderDto, StaffDto, CustomerDto, ServiceDto, UpdateOrderDto } from 'src/shared/dto';
 import { RecordStatus, RecordStatusFinish } from 'src/shared/enums';
 import { OrdersService, CustomersService, StaffService, ServicesService } from 'src/services';
 import { ICustomerEntity, IOrderEntity } from 'src/shared/interfaces';
 import { Utils } from 'src/shared/utils';
+import { JwtAuthGuard } from 'src/services/auth';
 
 @ApiTags('Orders')
 @Controller('orders')
@@ -18,6 +19,8 @@ export class OrdersController {
   ) { }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Возвращает онлайн-записи на услуги' })
   @ApiOkResponse({ type: [OrderDto] })
   @ApiQuery({ name: 'from', description: 'Дата начала периода дат посещения', required: false })
@@ -98,6 +101,8 @@ export class OrdersController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'Данные заявки изменены' })
   @ApiNotFoundResponse({ description: 'Заявка не найдена' })
   updateOrder(@Param('id') id: number, @Body() updateOrderDto: UpdateOrderDto) {
@@ -112,6 +117,8 @@ export class OrdersController {
   }
 
   @Patch('close/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiQuery({ name: 'finishStatus', enum: RecordStatusFinish, description: 'Услуга оказана или нет' })
   @ApiNotFoundResponse({ description: 'Заявка не найдена' })
   closeOrder(@Param('id') id: number, @Query('finishStatus') finishStatus: RecordStatusFinish) {
@@ -126,6 +133,8 @@ export class OrdersController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ description: 'Заявка удалена' })
   @ApiNotFoundResponse({ description: 'Заявка не найдена' })
   removeOrder(@Param('id') id: number) {

@@ -50,6 +50,11 @@ export class CreateStaffDto {
   @ApiProperty({ description: 'Дата начала работы в компании', required: false })
   startWorkDate: Date;
 
-  @ApiProperty({ description: 'Путь до фотки сотрудника', required: false })
+  @ApiProperty({
+    description: 'Фотки сотрудника',
+    type: 'string',
+    format: 'binary',
+    required: false
+  })
   photo: string;
 }

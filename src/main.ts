@@ -21,6 +21,7 @@ function initSwagger(app: INestApplication) {
   const options = new DocumentBuilder()
     .setTitle('Beauty Saloon Api')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

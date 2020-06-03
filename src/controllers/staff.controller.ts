@@ -55,6 +55,8 @@ export class StaffController {
       storage: diskStorage({
         destination: path.join(__dirname, '../../public/'),
         filename: (req, file, cb) => {
+          console.log(1);
+          
           return cb(null, `${uuidv4()}${extname(file.originalname)}`)
         }
       })
@@ -64,6 +66,8 @@ export class StaffController {
   @ApiOperation({ summary: 'Создаёт нового сотрудника' })
   @ApiCreatedResponse({ description: 'Сотрудник успешно создан', type: StaffDto })
   createStaff(@Body() createStaffDto: CreateStaffDto, @UploadedFile() photo): StaffDto {
+    console.log(photo);
+    
     const createdstaff = this.staffService.create({
       ...createStaffDto,
       photo: `${SERVER_PATH}/staff/photo/${photo.filename}`

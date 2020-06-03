@@ -1,3 +1,6 @@
+import * as moment from 'moment';
+import { API_DATE_FORMAT } from './constants';
+
 type FilterDataType = string | number | boolean;
 
 export enum FilterOperator {
@@ -13,7 +16,23 @@ export enum FilterOperator {
   GreaterThanOrEqual = 'greaterThanOrEqual'
 }
 
+interface IPeriod {
+  from: string,
+  to: string
+}
+
 export class Utils {
+
+  static getDateWithApiFormat(date: string) {
+    return moment(date).format(API_DATE_FORMAT);
+  }
+
+  static getPeriodWithApiFormat(period: IPeriod): IPeriod {
+    return {
+      from: Utils.getDateWithApiFormat(period.from),
+      to: Utils.getDateWithApiFormat(period.to)
+    };
+  }
 
   static compare(
     value: FilterDataType,

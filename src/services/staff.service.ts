@@ -8,7 +8,6 @@ export class StaffService extends InMemoryDbService<IStaffEntity> {
 
   constructor() {
     super();
-
     this.createMany(mastersMock);
   }
 

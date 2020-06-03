@@ -4,8 +4,6 @@ import { ServiceDto, CreateServiceDto } from 'src/shared/dto';
 import { ServicesService } from 'src/services';
 import { JwtAuthGuard } from 'src/services/auth';
 
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @ApiTags('Services')
 @Controller('services')
 export class ServicesController {
@@ -20,6 +18,8 @@ export class ServicesController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Возвращает клиента по id' })
   @ApiNotFoundResponse({ description: 'Услуга не неайдена' })
   @ApiOkResponse({ type: ServiceDto })
@@ -34,6 +34,8 @@ export class ServicesController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Создаёт новую услугу' })
   @ApiCreatedResponse({ description: 'Услуга создана', type: ServiceDto })
   createService(@Body() createServiceDto: CreateServiceDto): ServiceDto {
@@ -42,6 +44,8 @@ export class ServicesController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Обновляет данные услуги' })
   @ApiNotFoundResponse({ description: 'Услуга не неайдена' })
   @ApiOkResponse({ description: 'Услуга изменена', type: ServiceDto })
@@ -57,6 +61,8 @@ export class ServicesController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Удаляет услугу' })
   @ApiNotFoundResponse({ description: 'Услуга не неайдена' })
   @ApiOkResponse({ description: 'Услуга удалена' })

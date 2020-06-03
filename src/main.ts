@@ -2,9 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-
-const PORT = process.env.PORT || 3000;
-const API_PREFIX = 'api';
+import { API_PREFIX, PORT } from './shared/constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

@@ -58,3 +58,28 @@ export class CreateStaffDto {
   })
   photo: string;
 }
+
+export class UpdateStaffDto {
+  @ApiProperty({ description: 'Имя', required: false })
+  firstName: string;
+
+  @ApiProperty({ description: 'Отчество', required: false })
+  patronymic: string;
+
+  @ApiProperty({ description: 'Фамилия', required: false })
+  surName: string;
+
+  @ApiProperty({ description: 'Должность', required: false })
+  position: string;
+
+  @ApiProperty({ description: 'Дата начала работы в компании', required: false })
+  startWorkDate: Date;
+
+  @ApiProperty({
+    description: 'Фотки сотрудника',
+    type: 'string',
+    format: 'binary',
+    required: false
+  })
+  photo: string;
+}

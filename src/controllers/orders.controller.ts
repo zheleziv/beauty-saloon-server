@@ -52,6 +52,9 @@ export class OrdersController {
 
         return isFrom || isTo;
       })
+      .sort((a, b) => {
+        return (new Date(a.createdDate).getTime()) < (new Date(b.createdDate).getTime()) ? 1 : -1
+      });
   }
 
   @Post()

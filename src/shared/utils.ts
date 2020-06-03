@@ -23,15 +23,8 @@ interface IPeriod {
 
 export class Utils {
 
-  static getDateWithApiFormat(date: string) {
-    return moment(date).format(API_DATE_FORMAT);
-  }
-
-  static getPeriodWithApiFormat(period: IPeriod): IPeriod {
-    return {
-      from: Utils.getDateWithApiFormat(period.from),
-      to: Utils.getDateWithApiFormat(period.to)
-    };
+  static getDateTime(date: string): number {
+    return (new Date(date.slice(0, 10))).getTime();
   }
 
   static compare(

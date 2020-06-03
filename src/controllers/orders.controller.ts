@@ -7,7 +7,7 @@ import { ICustomerEntity, IOrderEntity } from 'src/shared/interfaces';
 import { Utils } from 'src/shared/utils';
 import { JwtAuthGuard } from 'src/services/auth';
 
-const dateTime = date => (new Date(date.slice(0, 10))).getTime();
+
 
 @ApiTags('Orders')
 @Controller('orders')
@@ -21,8 +21,8 @@ export class OrdersController {
   ) { }
 
   @Get()
-  // @ApiBearerAuth()
-  // @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Возвращает онлайн-записи на услуги' })
   @ApiOkResponse({ type: [OrderDto] })
   @ApiQuery({ name: 'from', description: 'Дата начала периода дат посещения', required: false })
@@ -42,20 +42,20 @@ export class OrdersController {
       .filter(order => status ? order.status === status : true)
       .filter(order => {
         if (from && order.visitDate) {
-          return dateTime(order.visitDate) >= dateTime(from);
+          return Utils.getDateTime(order.visitDate) >= Utils.getDateTime(from);
         }
 
         return true;
       })
       .filter(order => {
         if (to && order.visitDate) {
-          return dateTime(order.visitDate) <= dateTime(to);
+          return Utils.getDateTime(order.visitDate) <= Utils.getDateTime(to);
         }
 
         return true;
       })
       .sort((a, b) => {
-        return (new Date(a.createdDate).getTime()) < (new Date(b.createdDate).getTime()) ? 1 : -1
+        return Utils.getDateTime(a.createdDate) < Utils.getDateTime(b.createdDate) ? 1 : -1
       });
   }
 

@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-import { API_DATE_FORMAT } from './constants';
-
 type FilterDataType = string | number | boolean;
 
 export enum FilterOperator {

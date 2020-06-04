@@ -1,6 +1,6 @@
-import { SERVER_PATH } from "../constants";
+import { API_PATH } from "../constants";
 
-const photo = fileName => `${SERVER_PATH}/staff/photo/${fileName}`;
+const photo = fileName => `${API_PATH}/staff/photo/${fileName}`;
 
 export default [
   {

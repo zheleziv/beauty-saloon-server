@@ -51,7 +51,7 @@ export class CreateStaffDto {
   startWorkDate: Date;
 
   @ApiProperty({
-    description: 'Фотки сотрудника',
+    description: 'Фотки сотрудника (только изображение)',
     type: 'string',
     format: 'binary',
     required: false
@@ -76,7 +76,7 @@ export class UpdateStaffDto {
   startWorkDate: Date;
 
   @ApiProperty({
-    description: 'Фотки сотрудника',
+    description: 'Фотки сотрудника (только изображение)',
     type: 'string',
     format: 'binary',
     required: false

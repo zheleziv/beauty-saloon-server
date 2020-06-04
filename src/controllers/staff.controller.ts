@@ -5,11 +5,8 @@ import { StaffDto, UpdateStaffDto, CreateStaffDto } from 'src/shared/dto';
 import { StaffService } from 'src/services';
 import { Utils } from 'src/shared/utils';
 import { JwtAuthGuard } from 'src/services/auth';
-import { diskStorage } from 'multer';
-import { v4 as uuidv4 } from 'uuid';
+import { memoryStorage } from 'multer';
 import { extname } from 'path';
-import * as path from 'path';
-import { SERVER_PATH } from 'src/shared/constants';
 
 @ApiTags('Staff')
 @Controller('staff')
@@ -50,67 +47,75 @@ export class StaffController {
   @Post()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(
-    FileInterceptor('photo', {
-      storage: diskStorage({
-        destination: path.join(__dirname, '../../public/'),
-        filename: (req, file, cb) => {
-          console.log(1);
-          
-          return cb(null, `${uuidv4()}${extname(file.originalname)}`)
-        }
-      })
-    })
-  )
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: memoryStorage(),
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+        cb(null, true);
+      } else {
+        cb(new HttpException(`Unsupported file type ${extname(file.originalname)}`, HttpStatus.BAD_REQUEST), false);
+      }
+    }
+  }))
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Создаёт нового сотрудника' })
   @ApiCreatedResponse({ description: 'Сотрудник успешно создан', type: StaffDto })
-  createStaff(@Body() createStaffDto: CreateStaffDto, @UploadedFile() photo): StaffDto {
-    console.log(photo);
-    
-    const createdstaff = this.staffService.create({
-      ...createStaffDto,
-      photo: `${SERVER_PATH}/staff/photo/${photo.filename}`
-    });
+  async createStaff(@Body() createStaffDto: CreateStaffDto, @UploadedFile() photo): Promise<StaffDto> {
+    let photoUrl = '';
 
-    return new StaffDto(createdstaff);
+    try {
+      photoUrl = await this.staffService.uploadPhoto(photo);
+    } finally {
+      const createdstaff = this.staffService.create({
+        ...createStaffDto,
+        photo: photoUrl
+      });
+
+      return new StaffDto(createdstaff);
+    }
   }
 
   @Patch(':id')
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(
-    FileInterceptor('photo', {
-      storage: diskStorage({
-        destination: path.join(__dirname, '../../public/'),
-        filename: (req, file, cb) => {
-          return cb(null, `${uuidv4()}${extname(file.originalname)}`)
-        }
-      })
-    })
-  )
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: memoryStorage(),
+    fileFilter: (req, file, cb) => {
+      if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+        cb(null, true);
+      } else {
+        cb(new HttpException(`Unsupported file type ${extname(file.originalname)}`, HttpStatus.BAD_REQUEST), false);
+      }
+    }
+  }))
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Редактирует данные сотрудника' })
   @ApiNotFoundResponse({ description: 'Сотрудник не найден' })
   @ApiCreatedResponse({ description: 'Данные сотрудника отредактированы', type: StaffDto })
-  updatetaff(
+  async updatetaff(
     @Param('id') id: number,
     @Body() updateStaffDto: UpdateStaffDto,
     @UploadedFile() photo
-  ): StaffDto {
+  ): Promise<StaffDto> {
     const staff = this.staffService.get(+id);
 
     if (!staff) {
       throw new HttpException('Сотрудник не найден', HttpStatus.NOT_FOUND);
     }
 
-    this.staffService.update({
-      ...updateStaffDto,
-      id,
-      photo: `${SERVER_PATH}/staff/photo/${photo.filename}`
-    });
+    let photoUrl = '';
 
-    return new StaffDto(this.staffService.get(+id));
+    try {
+      photoUrl = await this.staffService.uploadPhoto(photo);
+    } finally {
+      this.staffService.update({
+        ...updateStaffDto,
+        id,
+        photo: photoUrl
+      });
+
+      return new StaffDto(this.staffService.get(+id));
+    }
   }
 
   @Get('photo/:fileId')

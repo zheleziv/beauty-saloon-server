@@ -10,7 +10,7 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix(API_PREFIX);
 
-  initSwagger(app);
+  initSwagger(app);  
 
   await app.listen(PORT);
 }

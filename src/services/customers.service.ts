@@ -20,6 +20,6 @@ export class CustomersService extends InMemoryDbService<ICustomerEntity> {
         patronymic: 'Петрович',
         phone: '+7 (323) 442-11-22'
       }
-    ])
+    ]);
   }
 }

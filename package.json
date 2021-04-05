@@ -24,6 +24,7 @@
     "@aginix/nestjs-firebase-admin": "^1.0.8",
     "@google-cloud/storage": "^5.0.1",
     "@nestjs/common": "^7.0.0",
+    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.0.0",
     "@nestjs/jwt": "^7.0.0",
     "@nestjs/passport": "^7.0.0",

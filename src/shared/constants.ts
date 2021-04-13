@@ -4,8 +4,8 @@ export const API_PREFIX = 'api';
 
 const server = {
   dev: `http://localhost:${PORT}`,
-  staging: 'https://beaty-saloon-api.herokuapp.com/',
-  production: 'https://beaty-saloon-api.herokuapp.com/',
+  staging: 'https://beautty-saloon-server.herokuapp.com/api',
+  production: 'https://beautty-saloon-server.herokuapp.com/api',
 };
 
 export const API_PATH = `${server[ENV]}/${API_PREFIX}`;
